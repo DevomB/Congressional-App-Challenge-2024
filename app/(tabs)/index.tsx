@@ -1,4 +1,3 @@
-import { ThemedView } from '@/components/ThemedView';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -25,7 +24,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <ThemedView style={styles.container}>
+    <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
@@ -33,7 +32,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </CameraView>
-    </ThemedView>
+    </View>
   );
 }
 
