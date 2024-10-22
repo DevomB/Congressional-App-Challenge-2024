@@ -1,18 +1,17 @@
+import { ThemedView } from '@/components/ThemedView';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function App() {
+export default function HomeScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
 
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
         <Text style={styles.message}>We need your permission to show the camera</Text>
@@ -26,7 +25,7 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <CameraView style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
@@ -34,7 +33,7 @@ export default function App() {
           </TouchableOpacity>
         </View>
       </CameraView>
-    </View>
+    </ThemedView>
   );
 }
 
@@ -42,13 +41,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   message: {
     textAlign: 'center',
     paddingBottom: 10,
   },
   camera: {
-    flex: 1,
+    width: '85%', // Adjust the width of the camera
+    height: '70%',   // Adjust the height of the camera
+    borderRadius: 20, // Optional: Add rounded corners
+    overflow: 'hidden', // To ensure the camera stays within the border
   },
   buttonContainer: {
     flex: 1,
