@@ -1,6 +1,7 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
@@ -23,15 +24,19 @@ export default function HomeScreen() {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
 
+  const buttonSize = 40;
+
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
+      <CameraView style={styles.camera} facing={facing} />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.checkmarkButton}>
+          <Ionicons name="checkmark" size={buttonSize} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.flipButton} onPress={toggleCameraFacing}>
+          <Ionicons name="camera-reverse-outline" size={buttonSize} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -47,25 +52,28 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   camera: {
-    width: '85%', // Adjust the width of the camera
-    height: '70%',   // Adjust the height of the camera
-    borderRadius: 20, // Optional: Add rounded corners
-    overflow: 'hidden', // To ensure the camera stays within the border
+    width: '85%',
+    height: '70%',
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   buttonContainer: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    margin: 64,
+    marginTop: 16,
+    width: '85%',
+    justifyContent: 'space-between', // Positions buttons on the left and right
   },
-  button: {
-    flex: 1,
-    alignSelf: 'flex-end',
+  checkmarkButton: {
     alignItems: 'center',
+    backgroundColor: '#00A86B', // Green background for the checkmark button
+    padding: 10,
+    borderRadius: 50,
   },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+  flipButton: {
+    alignItems: 'center',
+    backgroundColor: '#195b91',
+    padding: 10,
+    borderRadius: 50,
   },
 });

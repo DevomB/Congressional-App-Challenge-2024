@@ -3,24 +3,28 @@ import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+// import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors['light'].tint,
         headerShown: false,
-        tabBarLabelStyle: { fontSize: 10 }, // Adjust the font size here
+        tabBarLabelStyle: { fontSize: 11 }, // Adjust the font size here
+        tabBarStyle: { 
+          paddingBottom: 20, // Adds space below the navigation bar
+          height: 70, // Adjust the height of the nav bar if necessary
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Scan',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'camera' : 'camera-outline'} color={color} style={{}} />
+            <TabBarIcon name={focused ? 'camera' : 'camera-outline'} color={color} size={40} style={{}} />
           ),
         }}
       />
@@ -29,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: 'Flashcards',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} style={{}} />
+            <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} size={40} style={{}} />
           ),
         }}
       />
