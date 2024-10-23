@@ -60,7 +60,7 @@ export default function HomeScreen() {
         <Text style={styles.headerText}>Camera</Text>
       </View>
       <View style={styles.container}>
-        <CameraView style={styles.camera} facing={facing} isPaused={isCameraFrozen} />
+        <CameraView style={styles.camera} facing={facing}  />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[
