@@ -5,6 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 export default function StorageScreen() {
   const navigation = useNavigation();
 
+  const goToFlashScreen = () => {
+    navigation.navigate('flashScreen'); // Ensure this matches your screen name
+  };
+
   return (
     <SafeAreaView style={styles.headerContainer}>
       <View style={styles.header}>
@@ -16,13 +20,13 @@ export default function StorageScreen() {
 
       <View style={styles.cardsContainer}>
         {/* US History Card */}
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={goToFlashScreen}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>US History</Text>
             <Text style={styles.cardDescription}>This covers the founding of American Ideals.</Text>
           </View>
           <Text style={styles.cardUpdated}>Last updated: 10-20-2024</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.card}>
           <View style={styles.cardContent}>

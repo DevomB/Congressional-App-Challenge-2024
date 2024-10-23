@@ -1,4 +1,3 @@
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,33 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Questions from "@/constants/Questions"
 
 export default function FlashcardScreen() {
-  const [facing, setFacing] = useState<CameraType>('back');
-  const [permission, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
-
-  if (!permission) {
-    return <View />;
-  }
-
-  if (!permission.granted) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.message}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="Grant Camera Permission" />
-      </View>
-    );
-  }
-
-  function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
-  }
-
-  function takePicture() {
-    // Add functionality to take the picture here
-    console.log('Picture taken!');
-  }
-
-  const buttonSize = 40;
 
   return (
     <SafeAreaView style={styles.headerContainer}>
@@ -40,22 +13,9 @@ export default function FlashcardScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Camera</Text>
+        <Text style={styles.headerText}>US History</Text>
     </View>
-    <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing} />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.checkmarkButton}>
-          <Ionicons name="checkmark" size={buttonSize} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-          <Ionicons name="camera-outline" size={buttonSize} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.flipButton} onPress={toggleCameraFacing}>
-          <Ionicons name="camera-reverse-outline" size={buttonSize} color="white" />
-        </TouchableOpacity>
-      </View>
-    </View>
+    
     </SafeAreaView>
   );
 }
