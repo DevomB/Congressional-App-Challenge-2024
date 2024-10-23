@@ -31,9 +31,18 @@ export default function TabLayout() {
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Flashcards',
+          title: 'Folders',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} size={40} style={{}} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="flashScreen"
+        options={{
+          title: 'Flashcards',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'file-tray-full' : 'file-tray-full-outline'} color={color} size={40} style={{}} />
           ),
         }}
       />

@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function HomeScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [isCameraFrozen, setIsCameraFrozen] = useState(false);
   const navigation = useNavigation();
 
   if (!permission) {
@@ -23,38 +25,74 @@ export default function HomeScreen() {
   }
 
   function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
+    if (!buttonsDisabled) {
+      setFacing(current => (current === 'back' ? 'front' : 'back'));
+    }
   }
 
   function takePicture() {
-    // Add functionality to take the picture here
-    console.log('Picture taken!');
+    if (!buttonsDisabled) {
+      setButtonsDisabled(true);  // Disable buttons
+      setIsCameraFrozen(true);   // Freeze the camera
+
+      console.log('Picture taken!');
+
+      // Wait for 3 seconds before enabling buttons and unfreezing the camera
+      setTimeout(() => {
+        setButtonsDisabled(false);
+        setIsCameraFrozen(false);
+      }, 3000);
+    }
   }
 
   const buttonSize = 40;
 
   return (
     <SafeAreaView style={styles.headerContainer}>
-    <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+          disabled={buttonsDisabled}  // Disable button if buttonsDisabled is true
+        >
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Camera</Text>
-    </View>
-    <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing} />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.checkmarkButton}>
-          <Ionicons name="checkmark" size={buttonSize} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-          <Ionicons name="camera-outline" size={buttonSize} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.flipButton} onPress={toggleCameraFacing}>
-          <Ionicons name="camera-reverse-outline" size={buttonSize} color="white" />
-        </TouchableOpacity>
       </View>
-    </View>
+      <View style={styles.container}>
+        <CameraView style={styles.camera} facing={facing} isPaused={isCameraFrozen} />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={[
+              styles.checkmarkButton,
+              buttonsDisabled && styles.disabledButton // Dim button if disabled
+            ]}
+            disabled={buttonsDisabled}
+          >
+            <Ionicons name="checkmark" size={buttonSize} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.captureButton,
+              buttonsDisabled && styles.disabledButton // Dim button if disabled
+            ]}
+            onPress={takePicture}
+            disabled={buttonsDisabled}
+          >
+            <Ionicons name="camera-outline" size={buttonSize} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.flipButton,
+              buttonsDisabled && styles.disabledButton // Dim button if disabled
+            ]}
+            onPress={toggleCameraFacing}
+            disabled={buttonsDisabled}
+          >
+            <Ionicons name="camera-reverse-outline" size={buttonSize} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -112,13 +150,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    marginTop : -13,
+    marginTop: -13,
   },
   backButton: {
     marginRight: 10,
   },
   headerText: {
     fontSize: 30,
-    fontWeight: '600',  
+    fontWeight: '600',
+  },
+  disabledButton: {
+    opacity: 0.5,  // Dims the button when it's disabled
   },
 });

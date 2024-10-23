@@ -11,23 +11,23 @@ export default function StorageScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Flashcards</Text>
+        <Text style={styles.headerText}>Folders</Text>
       </View>
 
       <View style={styles.cardsContainer}>
         {/* US History Card */}
-        <View style={styles.card}>
+        <TouchableOpacity onPress={() => navigation.navigate('flashScreen')} style={styles.card}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>US History</Text>
-            <Text style={styles.cardDescription}>This covers the founding of American Ideals.</Text>
+            <Text style={styles.cardDescription}>This set covers the founding of America.</Text>
           </View>
-          <Text style={styles.cardUpdated}>Last updated: 10-20-2024</Text>
-        </View>
+          <Text style={styles.cardUpdated}>Last updated: Now</Text>
+        </TouchableOpacity>
 
         <View style={styles.card}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>Physics</Text>
-            <Text style={styles.cardDescription}>This includes laws of motion and energy.</Text>
+            <Text style={styles.cardDescription}>This set covers laws of motion and energy.</Text>
           </View>
           <Text style={styles.cardUpdated}>Last updated: 10-13-2024</Text>
         </View>
@@ -35,7 +35,7 @@ export default function StorageScreen() {
         <View style={styles.card}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>Chemistry</Text>
-            <Text style={styles.cardDescription}>This explores the periodic table and chemical reactions.</Text>
+            <Text style={styles.cardDescription}>This set covers the periodic table and chemical reactions.</Text>
           </View>
           <Text style={styles.cardUpdated}>Last updated: 10-13-2024</Text>
         </View>
