@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 // import { useColorScheme } from '@/hooks/useColorScheme';
@@ -12,10 +13,10 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors['light'].tint,
         headerShown: false,
-        tabBarLabelStyle: { fontSize: 11 },
+        tabBarLabelStyle: { fontSize: 11 }, // Adjust the font size here
         tabBarStyle: { 
-          paddingBottom: 20,
-          height: 70,
+          paddingBottom: 20, // Adds space below the navigation bar
+          height: 70, // Adjust the height of the nav bar if necessary
         },
       }}>
       <Tabs.Screen
@@ -23,7 +24,7 @@ export default function TabLayout() {
         options={{
           title: 'Scan',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'camera' : 'camera-outline'} color={color} size={40} style={{}}/>
+            <TabBarIcon name={focused ? 'camera' : 'camera-outline'} color={color} size={40} style={{}} />
           ),
         }}
       />
@@ -32,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: 'Flashcards',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} size={40} style={{}}/>
+            <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} size={40} style={{}} />
           ),
         }}
       />
