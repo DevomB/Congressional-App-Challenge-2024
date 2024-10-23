@@ -8,7 +8,6 @@ export default function HomeScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const [isCameraFrozen, setIsCameraFrozen] = useState(false);
   const navigation = useNavigation();
 
   if (!permission) {
@@ -32,15 +31,14 @@ export default function HomeScreen() {
 
   function takePicture() {
     if (!buttonsDisabled) {
-      setButtonsDisabled(true);  // Disable buttons
-      setIsCameraFrozen(true);   // Freeze the camera
+      setButtonsDisabled(true); // Disable buttons
 
       console.log('Picture taken!');
 
-      // Wait for 3 seconds before enabling buttons and unfreezing the camera
+      // Navigate to Explore after 3 seconds
       setTimeout(() => {
         setButtonsDisabled(false);
-        setIsCameraFrozen(false);
+        navigation.navigate('Explore'); // Navigate to explore.jsx
       }, 3000);
     }
   }
@@ -53,39 +51,32 @@ export default function HomeScreen() {
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.backButton}
-          disabled={buttonsDisabled}  // Disable button if buttonsDisabled is true
+          disabled={buttonsDisabled}
         >
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Camera</Text>
       </View>
       <View style={styles.container}>
-        <CameraView style={styles.camera} facing={facing}  />
+        <CameraView style={styles.camera} facing={facing} />
+        {buttonsDisabled && <View style={styles.overlay} />}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={[
-              styles.checkmarkButton,
-              buttonsDisabled && styles.disabledButton // Dim button if disabled
-            ]}
+            style={[styles.checkmarkButton, buttonsDisabled && styles.disabledButton]}
+            onPress={takePicture} // Ensure this button takes a picture
             disabled={buttonsDisabled}
           >
             <Ionicons name="checkmark" size={buttonSize} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.captureButton,
-              buttonsDisabled && styles.disabledButton // Dim button if disabled
-            ]}
+            style={[styles.captureButton, buttonsDisabled && styles.disabledButton]}
             onPress={takePicture}
             disabled={buttonsDisabled}
           >
             <Ionicons name="camera-outline" size={buttonSize} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.flipButton,
-              buttonsDisabled && styles.disabledButton // Dim button if disabled
-            ]}
+            style={[styles.flipButton, buttonsDisabled && styles.disabledButton]}
             onPress={toggleCameraFacing}
             disabled={buttonsDisabled}
           >
@@ -112,6 +103,16 @@ const styles = StyleSheet.create({
     height: '80%',
     borderRadius: 20,
     overflow: 'hidden',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(128, 128, 128, 0.5)', // Gray overlay
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
