@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { Button, StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Questions from "@/constants/Questions"
 
-export default function HomeScreen() {
+export default function FlashcardScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
