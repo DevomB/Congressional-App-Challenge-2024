@@ -45,14 +45,20 @@ export default function HomeScreen() {
           clickable={false}
         >
           {/* Front */}
-          <TouchableOpacity style={styles.blackButton} onPress={() => setIsFlipped(true)}>
-            <Text style={styles.buttonText}>{currentFlashcard.question}</Text>
-          </TouchableOpacity>
+          <View style={styles.blackButton}>
+            <Text style={styles.topText}>Question</Text>
+            <TouchableOpacity onPress={() => setIsFlipped(true)}>
+              <Text style={styles.buttonText}>{currentFlashcard.question}</Text>
+            </TouchableOpacity>
+          </View>
 
           {/* Back */}
-          <TouchableOpacity style={styles.backButtonContainer} onPress={() => setIsFlipped(false)}>
-            <Text style={styles.buttonText}>{currentFlashcard.answer}</Text>
-          </TouchableOpacity>
+          <View style={styles.backButtonContainer}>
+            <Text style={styles.topText}>Answer</Text>
+            <TouchableOpacity onPress={() => setIsFlipped(false)}>
+              <Text style={styles.buttonText}>{currentFlashcard.answer}</Text>
+            </TouchableOpacity>
+          </View>
         </FlipCard>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.checkmarkButton} onPress={handleCheckmarkPress}>
@@ -84,17 +90,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   backButtonContainer: {
     flex: 1,
-    backgroundColor: 'darkgrey',
+    backgroundColor: 'black', // Changed to black for the back side
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   buttonText: {
     color: 'white',
     fontSize: 20,
+    textAlign: 'center',
+  },
+  topText: {
+    color: 'white',
+    fontSize: 40,
+    marginBottom: 50,
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

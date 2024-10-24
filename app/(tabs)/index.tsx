@@ -2,13 +2,16 @@ import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+
+// Define the parameter list for your navigation
+type HomeScreenNavigationProp = NavigationProp<ParamListBase, 'HomeScreen'>;
 
 export default function HomeScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   if (!permission) {
     return <View />;
@@ -38,7 +41,6 @@ export default function HomeScreen() {
       // Navigate to Explore after 3 seconds
       setTimeout(() => {
         setButtonsDisabled(false);
-        navigation.navigate('Explore'); // Navigate to explore.jsx
       }, 3000);
     }
   }
@@ -63,7 +65,7 @@ export default function HomeScreen() {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.checkmarkButton, buttonsDisabled && styles.disabledButton]}
-            onPress={takePicture} // Ensure this button takes a picture
+            onPress={takePicture}
             disabled={buttonsDisabled}
           >
             <Ionicons name="checkmark" size={buttonSize} color="white" />
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(128, 128, 128, 0.5)', // Gray overlay
+    backgroundColor: 'rgba(128, 128, 128, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -161,6 +163,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   disabledButton: {
-    opacity: 0.5,  // Dims the button when it's disabled
+    opacity: 0.5,
   },
 });

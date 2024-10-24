@@ -15,7 +15,6 @@ export default function StorageScreen() {
       </View>
 
       <View style={styles.cardsContainer}>
-        {/* US History Card */}
         <TouchableOpacity onPress={() => navigation.navigate('flashScreen')} style={styles.card}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>US History</Text>
