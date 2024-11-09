@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 
 export default function StorageScreen() {
   const navigation = useNavigation();
@@ -15,6 +15,16 @@ export default function StorageScreen() {
       </View>
 
       <View style={styles.cardsContainer}>
+
+
+        <TouchableOpacity onPress={() => navigation.navigate('flashScreen')} style={styles.card}>
+          <View style={styles.cardContent}>
+            <Text style={styles.cardTitle}>US History</Text>
+            <Text style={styles.cardDescription}>This set covers the Manifest Destiny</Text>
+          </View>
+          <Text style={styles.cardUpdated}>Last updated: Now</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate('flashScreen')} style={styles.card}>
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>US History</Text>

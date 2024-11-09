@@ -3,9 +3,11 @@ import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import FlipCard from 'react-native-flip-card';
-import Questions from '@/constants/Questions';
 
 export default function HomeScreen() {
+
+  const Questions = {}
+
   const navigation = useNavigation();
   const [isFlipped, setIsFlipped] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
